@@ -1,0 +1,94 @@
+:root {
+    --el-color-primary: rgb(71, 82, 177);
+}
+
+#dygraph .dygraph-label {
+    font-family: Georgia, Verdana, serif;
+}
+
+#dygraph .dygraph-title {
+    font-size: 30px;
+    text-shadow: gray 2px 2px 2px;
+}
+
+#dygraph .dygraph-ylabel,
+.dygraph-xlabel {
+    font-size: 18px;
+    text-shadow: gray -2px 2px 2px;
+}
+
+.chart {
+    border: 1px dashed black;
+    margin: 5px 5px 5px 50px;
+    padding: 2px;
+}
+
+.dygraph-legend {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.main {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.left-container {
+    flex: 2.5;
+    width: 300px;
+    text-align: center;
+    font-size: normal;
+}
+
+.left-container .checkboxs{
+    height: 200px;
+    overflow-y: scroll;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.button-box {
+    display: flex;
+    flex-direction: row;
+    justify-content:space-evenly;
+    align-items:center;
+}
+
+.right-container {
+    border-left: 1px var(--el-border-color) var(--el-border-style);;
+    padding: 20px;
+    display: block;
+    text-align:justify;
+    flex: 8;
+}
+
+
+h2, h3{
+    text-align: center;
+}
+
+.right-container .checkboxs{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.el-checkbox{
+    margin: 5px 10px;
+}
+
+.el-popover.el-popper {
+    text-align: center !important;
+}
+
+.el-input__wrapper {
+    width: 100%;
+}
+
+.filterlist .el-card__body{
+    padding: 5px;
+}

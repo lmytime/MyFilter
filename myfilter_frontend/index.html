@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/myfilter/js/dygraph.min.js"></script>
+    <script src="/myfilter/js/axios.min.js"></script>
+    <script src="/myfilter/js/vue.global.prod.js"></script>
+    <script src="/myfilter/js/el-icons-vue-2.0.6.min.js"></script>
+    <!-- Import style -->
+    <link rel="stylesheet" href="/myfilter/css/element-plus.css" />
+    <!-- Import component library -->
+    <script src="/myfilter/js/element-plus.js"></script>
+    <link rel="stylesheet" href="/myfilter/css/dygraph.min.css">
+    <link rel="stylesheet" href="/myfilter/css/custom.css">
+    <title>Mingyu's Filter</title>
+</head>
+
+<body>
+    <div id="app">
+        <div class="main">
+            <div class="left-container">
+                <el-divider></el-divider>
+                <el-card style="text-align: left; font-size: small; width: 80%; margin: 0 auto;">
+                    <h2>README</h2>
+                    <span style="font-size: normal;"> 1. Hold down the shift key and drag the cursor to adjust line
+                        redshift;
+                        <br> 2. Hold down the alt/option key and drag the cursor to change wavelength window; <br>3.
+                        Drag
+                        the
+                        cursor to zoom in; <br>4. Double click to zoom out;<br><br>
+
+                        Filter infomation is from <a target="_blank"
+                        href="http://svo2.cab.inta-csic.es/theory/fps/index.php">SVO Filter Profile Service</a>.
+                    </span>
+                    <h4 style="text-align:center;"> Contact: <a target="_blank"
+                            href="https://lmytime.com/contact">Mingyu Li</a>
+                    </h4>
+                </el-card>
+                <el-divider></el-divider>
+                <h2>Search to Add Instrument</h2>
+                <el-select v-model="InstrumentValue" filterable remote reserve-keyword
+                            @change="addSearchedInstrument" placeholder="Search to Add Instrument"
+                            :remote-method="searchInstrument" :loading="loading" size="large" style="width:85%;">
+                            <el-option v-for="item in instrumentOptions" :key="item.value" :label="item.value"
+                                :value="item" />
+                </el-select>
+                <el-divider style="border-top:1px dashed"></el-divider>
+
+                <el-card class="filterlist" v-for="instrument in selectedIntrument" style="width: 95%; margin-bottom: 5px; border: 1px solid rgb(71, 82, 177);">
+                        <h3 @click="instrument.dialog = !instrument.dialog" style="cursor: pointer;" v-text="`${instrument.dialog ? instrument.value+' ↓' : instrument.value+' -'}`"></h3>
+                        <div class="checkboxs" v-show="instrument.dialog">
+                            <el-checkbox border v-for="filter in instrument.children" v-model="filter.checked" :key="filter.value"
+                                @change="updateFilter()">
+                                <span v-text="filter.label"></span>
+                            </el-checkbox>
+                        </div>
+                </el-card>
+
+
+            </div>
+            <div class="right-container">
+                <div class="dygraph" id="dygraph" style="width:100%; height:500px;"></div>
+                <el-divider></el-divider>
+                <span>
+                    <h3>
+                        Redshift z=
+                        <el-input-number size="large" @change="updateline" v-model="redshift" :precision="4"
+                            :step="0.0001">
+                        </el-input-number>
+                        <el-divider></el-divider>
+                        <span>Select Lines</span>
+                    </h3>
+                    <el-dialog v-model="dialogFormVisible" title="Add line">
+                        <el-form :model="form">
+                            <el-form-item label="Line name" :label-width="formLabelWidth">
+                                <el-input v-model="form.name" autocomplete="off" />
+                            </el-form-item>
+                            <el-form-item label="Line wavelength [Å]" :label-width="formLabelWidth">
+                                <el-input v-model="form.lambda" autocomplete="off" />
+                            </el-form-item>
+                        </el-form>
+                        <template #footer>
+                            <span class="dialog-footer">
+                                <el-button @click="dialogFormVisible = false">Cancel</el-button>
+                                <el-button type="primary" @click="addLine();dialogFormVisible = false">Confirm
+                                </el-button>
+                            </span>
+                        </template>
+                    </el-dialog>
+                    <div class="checkboxs">
+                        <a href="https://github.com/linetools/linetools/blob/master/linetools/lists/sets/llist_v1.3.ascii"
+                            target="_blank" style="text-decoration: none; color:black;">
+                            <el-icon><Help /></el-icon>
+                        </a>
+                        <el-select v-model="value" style="width: 240px;" filterable remote reserve-keyword
+                            @change="addSearchedLine" placeholder="Search name or wavelength"
+                            :remote-method="searchLine" :loading="loading">
+                            <el-option v-for="item in lineOptions" :key="item.w" :label="`${item.name} → ${item.w}Å`"
+                                :value="item" />
+                        </el-select>
+                        <el-checkbox border v-show="item.checked" v-for="item in lines" v-model="item.checked"
+                            :key="item.name" @change="g.updateOptions({})">
+                            <el-popover placement="top" trigger="hover" :content="`λ=${item.lambda}Å`">
+                                <template #reference>
+                                    <span v-text="item.name"></span>
+                                </template>
+                            </el-popover>
+                        </el-checkbox>
+                        <el-button style="margin: 0 10px;" type="primary" @click="dialogFormVisible = true">New custom
+                            line</el-button>
+                        <el-divider style="border-top:1px dashed">Optional lines </el-divider>
+                        <div style="height: 210px; overflow: scroll;">
+                            <el-checkbox border v-show="!item.checked" v-for="item in lines" v-model="item.checked"
+                                :key="item.name" @change="g.updateOptions({})">
+                                <el-popover placement="top" trigger="hover" :content="`λ=${item.lambda}Å`">
+                                    <template #reference>
+                                        <span v-text="item.name"></span>
+                                    </template>
+                                </el-popover>
+                            </el-checkbox>
+                        </div>
+                    </div>
+                </span>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        // please note,
+        // that IE11 now returns undefined again for window.chrome
+        // and new Opera 30 outputs true for window.chrome
+        // but needs to check if window.opr is not undefined
+        // and new IE Edge outputs to true now for window.chrome
+        // and if not iOS Chrome check
+        // so use the below updated condition
+        var isChromium = window.chrome;
+        var winNav = window.navigator;
+        var vendorName = winNav.vendor;
+        var isOpera = typeof window.opr !== "undefined";
+        var isIEedge = winNav.userAgent.indexOf("Edg") > -1;
+        var isIOSChrome = winNav.userAgent.match("CriOS");
+
+        if (isIOSChrome) {
+            // is Google Chrome on IOS
+        } else if (
+            isChromium !== null &&
+            typeof isChromium !== "undefined" &&
+            vendorName === "Google Inc." &&
+            isOpera === false &&
+            isIEedge === false
+        ) {
+            // is Google Chrome
+        } else {
+            // not Google Chrome
+            alert("This web app is only tested on Google Chrome. Please use Google Chrome to run this web app.");
+        }
+    </script>
+    <script type="module" src="/myfilter/js/custom.js"></script>
+
+</body>
+
+</html>

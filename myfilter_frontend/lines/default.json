@@ -1,0 +1,232 @@
+[
+    {
+        "name": "Lyβ 1026",
+        "lambda": 1025.7222,
+        "checked": false
+    },
+    {
+        "name": "O VI 1037",
+        "lambda": 1037.6167,
+        "checked": false
+    },
+    {
+        "name": "Lyα 1216",
+        "lambda": 1215.67,
+        "checked": true
+    },
+    {
+        "name": "N V 1238",
+        "lambda": 1238.821,
+        "checked": false
+    },
+    {
+        "name": "N V 1242",
+        "lambda": 1242.804,
+        "checked": false
+    },
+    {
+        "name": "C IV 1548",
+        "lambda": 1548.204,
+        "checked": true
+    },
+    {
+        "name": "C IV 1550",
+        "lambda": 1550.781,
+        "checked": false
+    },
+    {
+        "name": "He II 1640",
+        "lambda": 1640.42,
+        "checked": true
+    },
+    {
+        "name": "C III] 1908",
+        "lambda": 1908.734,
+        "checked": true
+    },
+    {
+        "name": "Mg II 2796",
+        "lambda": 2796.3543,
+        "checked": false
+    },
+    {
+        "name": "Mg II 2803",
+        "lambda": 2803.5315,
+        "checked": false
+    },
+    {
+        "name": "[O II] 3726",
+        "lambda": 3727.092,
+        "checked": false
+    },
+    {
+        "name": "[O II] 3729",
+        "lambda": 3729.874,
+        "checked": true
+    },
+    {
+        "name": "[Ne III] 3869",
+        "lambda": 3869.84,
+        "checked": true
+    },
+    {
+        "name": "Hζ",
+        "lambda": 3890.151,
+        "checked": false
+    },
+    {
+        "name": "Hδ",
+        "lambda": 4102.892,
+        "checked": false
+    },
+    {
+        "name": "Hγ",
+        "lambda": 4341.684,
+        "checked": true
+    },
+    {
+        "name": "[O III] 4363",
+        "lambda": 4364.435,
+        "checked": false
+    },
+    {
+        "name": "He II 4687",
+        "lambda": 4687.115,
+        "checked": false
+    },
+    {
+        "name": "Hβ",
+        "lambda": 4862.683,
+        "checked": true
+    },
+    {
+        "name": "[O III] 4959",
+        "lambda": 4960.295,
+        "checked": true
+    },
+    {
+        "name": "[O III] 5007",
+        "lambda": 5008.239,
+        "checked": true
+    },
+    {
+        "name": "He I 5876",
+        "lambda": 5877.299,
+        "checked": false
+    },
+    {
+        "name": "[N II] 6548",
+        "lambda": 6549.852,
+        "checked": false
+    },
+    {
+        "name": "Hα",
+        "lambda": 6564.613,
+        "checked": true
+    },
+    {
+        "name": "[N II] 6584",
+        "lambda": 6585.277,
+        "checked": false
+    },
+    {
+        "name": "[S II] 6716",
+        "lambda": 6718.294,
+        "checked": false
+    },
+    {
+        "name": "[S II] 6731",
+        "lambda": 6732.673,
+        "checked": false
+    },
+    {
+        "lambda": 7067.198,
+        "name": "HeI 7065",
+        "checked": false
+    },
+    {
+        "lambda": 7283.356,
+        "name": "HeI 7283",
+        "checked": false
+    },
+    {
+        "lambda": 9231.547,
+        "name": "Pa9",
+        "checked": false
+    },
+    {
+        "lambda": 9548.591,
+        "name": "Paepsilon",
+        "checked": false
+    },
+    {
+        "lambda": 9071.1,
+        "name": "[SIII] 9069",
+        "checked": false
+    },
+    {
+        "lambda": 9533.2,
+        "name": "[SIII] 9572",
+        "checked": true
+    },
+    {
+        "lambda": 10052.13,
+        "name": "Padelta",
+        "checked": true
+    },
+    {
+        "lambda": 10833.22,
+        "name": "HeI 10830",
+        "checked": true
+    },
+    {
+        "lambda": 10941.09,
+        "name": "Paγ",
+        "checked": true
+    },
+    {
+        "lambda": 12821.59,
+        "name": "Paβ",
+        "checked": false
+    },
+    {
+        "lambda": 12570.238,
+        "name": "[FeII] 1.257",
+        "checked": false
+    },
+    {
+        "lambda": 16439.981,
+        "name": "[FeII] 1.646",
+        "checked": true
+    },
+    {
+        "lambda": 18756.13,
+        "name": "Paα",
+        "checked": true
+    },
+    {
+        "lambda": 19450.87,
+        "name": "Brdelta",
+        "checked": false
+    },
+    {
+        "lambda": 21218.3,
+        "name": "H2 1-0 S(1)",
+        "checked": true
+    },
+    {
+        "lambda": 21661.2,
+        "name": "Brγ",
+        "checked": false
+    },
+    {
+        "lambda": 26258.67,
+        "name": "Brβ",
+        "checked": false
+    },
+    {
+        "lambda": 40522.62,
+        "name": "Brα",
+        "checked": false
+    }
+]
