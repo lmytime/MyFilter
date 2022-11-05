@@ -136,6 +136,7 @@ const app = Vue.createApp({
             this.updateFilter()
             // delete instrument
             this.selectedIntrument.splice(this.selectedIntrument.indexOf(instrument), 1)
+            instrument.dialog = true
         }
     },
     beforeMount() {
