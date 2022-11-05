@@ -118,6 +118,24 @@ const app = Vue.createApp({
         addSearchedInstrument(value) {
             this.selectedIntrument.push(value)
             this.InstrumentValue = ""
+        },
+        getSelectedFilterNumber(childen){
+            let count = 0
+            for (let ff of childen) {
+                if (ff.checked) {
+                    count++
+                }
+            }
+            return count
+        },
+        deleteSelectedInstrument(instrument){
+            // all filter set to unchecked
+            for (let ff of instrument.children) {
+                ff.checked = false
+            }
+            this.updateFilter()
+            // delete instrument
+            this.selectedIntrument.splice(this.selectedIntrument.indexOf(instrument), 1)
         }
     },
     beforeMount() {

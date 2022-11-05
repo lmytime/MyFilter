@@ -50,6 +50,22 @@
 
                 <el-card class="filterlist" v-for="instrument in selectedIntrument" style="width: 95%; margin-bottom: 5px; border: 1px solid rgb(71, 82, 177);">
                         <h3 @click="instrument.dialog = !instrument.dialog" style="cursor: pointer;" v-text="`${instrument.dialog ? instrument.value+' ↓' : instrument.value+' -'}`"></h3>
+                        <span v-show="!instrument.dialog" style="display: flex;flex-direction: row; justify-content: space-evenly; font-family: Courier, monospace;">
+                            <span v-text="`${getSelectedFilterNumber(instrument.children)} Selected`"></span>
+                            <el-popconfirm
+                                confirm-button-text="Delete"
+                                cancel-button-text="No"
+                                icon-color="#626AEF"
+                                :title="`Are you sure to delete ${instrument.value}?`"
+                                confirm-button-type="danger"
+                                cancel-button-type="info"
+                                @confirm="deleteSelectedInstrument(instrument)"
+                            >
+                            <template #reference>
+                                <el-button type="danger" link>Delete Card</el-button>
+                            </template>
+                          </el-popconfirm>
+                        </span>
                         <div class="checkboxs" v-show="instrument.dialog">
                             <el-checkbox border v-for="filter in instrument.children" v-model="filter.checked" :key="filter.value"
                                 @change="updateFilter()">
