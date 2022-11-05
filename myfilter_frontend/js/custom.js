@@ -152,11 +152,11 @@ const app = Vue.createApp({
         // initialize using Subaru/HSC g, r, i, z, Y filters and CFHT/MegaCam u filter
         this.selectedIntrument = [this.FilterIndexing[393], this.FilterIndexing[159]]
         this.selectedIntrument[0]['children'][3]['checked'] = true
-        this.selectedIntrument[0]['children'][5]['checked'] = true
-        this.selectedIntrument[0]['children'][7]['checked'] = true
-        this.selectedIntrument[0]['children'][16]['checked'] = true
+        this.selectedIntrument[0]['children'][8]['checked'] = true
+        this.selectedIntrument[0]['children'][12]['checked'] = true
+        this.selectedIntrument[0]['children'][15]['checked'] = true
         this.selectedIntrument[0]['children'][21]['checked'] = true
-        this.selectedIntrument[1]['children'][10]['checked'] = true
+        this.selectedIntrument[1]['children'][0]['checked'] = true
 
         this.updateFilter()
         this.g.redshift = 2.3
