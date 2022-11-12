@@ -155,17 +155,52 @@ const app = Vue.createApp({
         )
     },
     mounted() {
+        let legendFormatter = function (data) {
+            let g = data.dygraph;
+
+            if (g.getOption('showLabelsOnHighlight') !== true) return '';
+
+            let sepLines = g.getOption('labelsSeparateLines');
+            let html;
+
+            if (typeof (data.x) === 'undefined') {
+                if (g.getOption('legend') != 'always') {
+                    return '';
+                }
+                html = '';
+                for (let i = 0; i < data.series.length; i++) {
+                    let series = data.series[i];
+                    if (!series.isVisible) continue;
+                    if (html !== '') html += (sepLines ? '<br/>' : ' ');
+                    html += `<span style='font-weight: bold; color: ${series.color};'>${series.dashHTML} ${series.labelHTML}</span>`;
+                }
+                return html;
+            }
+            html = 'Wavelength:' + data.xHTML + 'Å';
+            for (let i = 0; i < data.series.length; i++) {
+                let series = data.series[i];
+                if (!series.isVisible) continue;
+                if (sepLines) html += '<br>';
+                let cls = series.isHighlighted ? ' class="highlight"' : '';
+                html += `<span${cls}> <b><span style='color: ${series.color};'>${series.labelHTML}</span></b>:&#160;${series.yHTML}</span>`;
+            }
+            return html;
+        };
+
         this.g = new Dygraph(document.getElementById("dygraph"),
             `https://preview.lmytime.com/getfilter?CFHT/MegaCam.u.dat&Subaru/HSC.g.dat&Subaru/HSC.r.dat&Subaru/HSC.i.dat&Subaru/HSC.z.dat&Subaru/HSC.Y.dat`, {
                 title: 'My Filter',
                 xlabel: 'Wavelength [Å]',
                 ylabel: 'Response',
-                legend: 'follow',
+                legend: 'always',
                 fillGraph: true,
                 rollPeriod: 1,
                 animatedZooms: true,
                 interactionModel: Dygraph.MyInteractionModel,
                 underlayCallback: this.underlaycallback,
+                labelsShowZeroValues: false,
+                labelsSeparateLines: true,
+                legendFormatter: legendFormatter,
             });
 
         // initialize using Subaru/HSC g, r, i, z, Y filters and CFHT/MegaCam u filter
