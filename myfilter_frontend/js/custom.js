@@ -14,6 +14,8 @@ const app = Vue.createApp({
             FilterIndexing: FilterIndexing,
             selectedIntrument:[],
             filter: "",
+            filterInit: [],
+            zInit: 2,
             dialogFormVisible: false,
             form: {
                 name: "",
@@ -24,6 +26,7 @@ const app = Vue.createApp({
             linList: allLines,
             lineOptions: [],
             instrumentOptions: [],
+            instrumentInit: [],
             value: "",
             InstrumentValue: ""
         }
@@ -78,7 +81,9 @@ const app = Vue.createApp({
                 }
             }
             if (this.filter.length === 0) {
-                this.filter = ["CFHT/MegaCam.u.dat", "Subaru/HSC.g.dat", "Subaru/HSC.r.dat", "Subaru/HSC.i.dat", "Subaru/HSC.z.dat", "Subaru/HSC.Y.dat"]
+                for (let fil of this.filterInit) {
+                    this.filter.push(fil + '.dat')
+                }
             }
             this.g.updateOptions({
                 'file': `https://preview.lmytime.com/getfilter?${this.filter.join('&')}`
@@ -145,6 +150,9 @@ const app = Vue.createApp({
             (acc, val) => ({ ...acc, [val]: params.get(val) }),
             {}
         );
+        this.filterInit = paramsObj.filter ? paramsObj.filter.split(',') : ["CFHT/MegaCam.u", "Subaru/HSC.g", "Subaru/HSC.r", "Subaru/HSC.i", "Subaru/HSC.z", "Subaru/HSC.Y"]
+        this.zInit = paramsObj.z ? parseFloat(paramsObj.z) : 2
+        console.log(this.filterInit, this.zInit)
         axios.get("/myfilter/lines/default.json").then(res => {
             this.lines = res.data;
         }).catch(err => {
@@ -188,7 +196,7 @@ const app = Vue.createApp({
         };
 
         this.g = new Dygraph(document.getElementById("dygraph"),
-            `https://preview.lmytime.com/getfilter?CFHT/MegaCam.u.dat&Subaru/HSC.g.dat&Subaru/HSC.r.dat&Subaru/HSC.i.dat&Subaru/HSC.z.dat&Subaru/HSC.Y.dat`, {
+            `https://preview.lmytime.com/getfilter?${this.filterInit.join('.dat&')+'.dat'}`, {
                 title: 'My Filter',
                 xlabel: 'Wavelength [Å]',
                 ylabel: 'Response',
@@ -203,17 +211,17 @@ const app = Vue.createApp({
                 legendFormatter: legendFormatter,
             });
 
-        // initialize using Subaru/HSC g, r, i, z, Y filters and CFHT/MegaCam u filter
-        this.selectedIntrument = [this.FilterIndexing[393], this.FilterIndexing[159]]
-        this.selectedIntrument[0]['children'][3]['checked'] = true
-        this.selectedIntrument[0]['children'][8]['checked'] = true
-        this.selectedIntrument[0]['children'][12]['checked'] = true
-        this.selectedIntrument[0]['children'][15]['checked'] = true
-        this.selectedIntrument[0]['children'][21]['checked'] = true
-        this.selectedIntrument[1]['children'][0]['checked'] = true
 
+        for (let fil of this.filterInit) {
+            let instrument = this.FilterIndexing.find(item => item.value === fil.split('.')[0])
+            this.instrumentInit.push(instrument)
+            let filter = instrument.children.find(item => item.value === fil+'.dat')
+            filter.checked = true
+        }
+        this.instrumentInit = this.instrumentInit.filter((v, i, a) => a.indexOf(v) === i);
+        this.selectedIntrument = [...this.instrumentInit]
         this.updateFilter()
-        this.g.redshift = 2.3
+        this.g.redshift = this.zInit
     }
 })
 
