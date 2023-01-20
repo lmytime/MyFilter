@@ -49,5 +49,5 @@ def index():
 
 if __name__ == "__main__":
     from waitress import serve
-    serve(app, host="0.0.0.0", port=3688)
-    # app.run(debug=True, port=9899)
+    # serve(app, host="0.0.0.0", port=3688)
+    app.run(debug=True, port=9899)

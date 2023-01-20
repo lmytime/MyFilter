@@ -48,6 +48,10 @@
                 </el-select>
                 <el-divider style="border-top:1px dashed"></el-divider>
 
+                <el-card class="filterlist" style="width: 95%; margin-bottom: 5px; border: 1px solid rgb(71, 82, 177);">
+                    <a :href="filterLink" target="_blank"><el-button link>Download Selected Filters</el-button></a>
+                </el-card>
+
                 <el-card class="filterlist" v-for="instrument in selectedIntrument" style="width: 95%; margin-bottom: 5px; border: 1px solid rgb(71, 82, 177);">
                         <h3 @click="instrument.dialog = !instrument.dialog" style="cursor: pointer;" v-text="`${instrument.dialog ? instrument.value+' ↓' : instrument.value+' -'}`"></h3>
                         <span v-show="!instrument.dialog" style="display: flex;flex-direction: row; justify-content: space-evenly; font-family: Courier, monospace;">

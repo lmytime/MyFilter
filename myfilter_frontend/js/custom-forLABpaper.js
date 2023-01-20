@@ -28,8 +28,7 @@ const app = Vue.createApp({
             instrumentOptions: [],
             instrumentInit: [],
             value: "",
-            InstrumentValue: "",
-            filterLink: "",
+            InstrumentValue: ""
         }
     },
     methods: {
@@ -49,14 +48,18 @@ const app = Vue.createApp({
                 if (this.lines[i].checked === false) continue;
                 let shiftedWave = this.lines[i].lambda * (1.0 + g.redshift);
                 let leftright = this.getLeftRight(shiftedWave, g);
-                canvas.fillStyle = "rgba(0, 38, 220, 0.6)"
+                // canvas.fillStyle = "rgba(0, 38, 220, 0.6)"
+                canvas.fillStyle = "rgba(222, 22, 26, 0.6)"
                 canvas.fillRect(leftright[0], area.y, leftright[1] - leftright[0], area.h);
-                canvas.font = "15px serif";
-                canvas.fillStyle = "rgba(0, 38, 220, 1)"
-                let offset = (i % 3) * 15 + 32;
+                // canvas.font = "15px serif";
+                canvas.font = "25px serif";
+                // canvas.fillStyle = "rgba(0, 38, 220, 1)"
+                canvas.fillStyle = "rgba(222, 22, 26, 1)"
+                // let offset = (i % 3) * 15 + 32;
+                let offset = (i % 3) * 25 + 10;
                 let texty = area.y + offset;
                 // let texty = lines[i].emission ? area.y + offset : area.y + area.h - offset;
-                canvas.fillText(this.lines[i].name, leftright[0], texty);
+                canvas.fillText(this.lines[i].name, leftright[0]+2, texty);
             }
         },
         updateline() {
@@ -86,9 +89,8 @@ const app = Vue.createApp({
                     this.filter.push(fil + '.dat')
                 }
             }
-            this.filterLink = `https://preview.lmytime.com/getfilter?${this.filter.join('&')}`
             this.g.updateOptions({
-                'file': this.filterLink
+                'file': `https://preview.lmytime.com/getfilter?${this.filter.join('&')}`
             });
         },
         searchLine(query) {
@@ -211,6 +213,12 @@ const app = Vue.createApp({
                 labelsShowZeroValues: false,
                 labelsSeparateLines: true,
                 legendFormatter: legendFormatter,
+                axisLabelFontSize: 24,
+                // axisTickSize: 10,
+                axisLineWidth: 4,
+                colors: ['purple', 'blue', 'green'],
+                strokeWidth: 5,
+                fillAlpha: 0.3,
             });
 
 
