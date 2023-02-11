@@ -15,7 +15,7 @@
     <script src="/myfilter/js/element-plus.js"></script>
     <link rel="stylesheet" href="/myfilter/css/dygraph.min.css">
     <link rel="stylesheet" href="/myfilter/css/custom.css">
-    <title>Mingyu's Filter</title>
+    <title>MyFilter</title>
 </head>
 
 <body>
@@ -48,10 +48,6 @@
                 </el-select>
                 <el-divider style="border-top:1px dashed"></el-divider>
 
-                <el-card class="filterlist" style="width: 95%; margin-bottom: 5px; border: 1px solid rgb(71, 82, 177);">
-                    <a :href="filterLink" target="_blank"><el-button link>Download Selected Filters</el-button></a>
-                </el-card>
-
                 <el-card class="filterlist" v-for="instrument in selectedIntrument" style="width: 95%; margin-bottom: 5px; border: 1px solid rgb(71, 82, 177);">
                         <h3 @click="instrument.dialog = !instrument.dialog" style="cursor: pointer;" v-text="`${instrument.dialog ? instrument.value+' ↓' : instrument.value+' -'}`"></h3>
                         <span v-show="!instrument.dialog" style="display: flex;flex-direction: row; justify-content: space-evenly; font-family: Courier, monospace;">
@@ -77,6 +73,25 @@
                             </el-checkbox>
                         </div>
                 </el-card>
+
+                <el-divider></el-divider>
+                <div style="display: flex; justify-content: space-evenly;">
+                    <el-card class="filterlist" style="width: 35%; margin-bottom: 5px; border: 1px solid rgb(71, 82, 177);">
+                        <el-button link @click="downloadWithAxios(filterLink, 'myfilters.csv')">Download csv</el-button>
+                    </el-card>
+                    <el-card class="filterlist" style="width: 35%; margin-bottom: 5px; border: 1px solid rgb(71, 82, 177);">
+                        <el-button link @click="shareLinkVisible=!shareLinkVisible">Share Link</el-button>
+                    </el-card>
+                </div>
+                <el-input
+                    v-if="shareLinkVisible"
+                    v-model="shareLink"
+                    readonly
+                    resize='none'
+                    autosize
+                    type="textarea"
+                    input-style="word-wrap:break-word;line-height:1;font-family: monospace;font-size:small;word-break: break-all;"
+                    />
 
 
             </div>
