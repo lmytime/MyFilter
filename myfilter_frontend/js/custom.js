@@ -80,7 +80,7 @@ const app = Vue.createApp({
             for (let instrument of this.selectedIntrument) {
                 for (let ff of instrument.children) {
                     if (ff.checked) {
-                        this.filter.push(ff.value)
+                        this.filter.push(ff.value.slice(0, -4))
                     }
                 }
             }
@@ -257,7 +257,7 @@ const app = Vue.createApp({
         for (let fil of this.filterInit) {
             let instrument = this.FilterIndexing.find(item => item.value === fil.split('.')[0])
             this.instrumentInit.push(instrument)
-            let filter = instrument.children.find(item => item.value === fil)
+            let filter = instrument.children.find(item => item.value === fil + '.dat')
             filter.checked = true
         }
         this.instrumentInit = this.instrumentInit.filter((v, i, a) => a.indexOf(v) === i);
@@ -267,8 +267,7 @@ const app = Vue.createApp({
     },
     computed: {
         shareLink: function () {
-            let filter = [];
-            return `https://preview.lmytime.com/myfilter?fil=${filter.join(',')}&z=${this.redshift}`
+            return `https://preview.lmytime.com/myfilter?fil=${this.filter.join(',')}&z=${this.redshift}`
         }
     }
 })
