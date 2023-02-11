@@ -22,7 +22,7 @@ def combine_filter(urls):
                                  bounds_error=False, fill_value=0)
         filter_interpolate[filname] = f
     wmin, wmax = min(_wavelength), max(_wavelength)
-    step = 5
+    step = (wmax+wmin)/2000
     final_t = {'w': np.arange(wmin, wmax+step, step=step)}
     for filname in filter_interpolate:
         fil_interpolate = filter_interpolate[filname]
