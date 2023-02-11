@@ -33,7 +33,7 @@ def combine_filter(urls):
 
 @app.route('/getfilter', methods=['GET'])
 def get_filter():
-    urls = {fil[:-4]: "./filters/"+fil for fil in request.args}
+    urls = {fil: "./filters/"+fil+'.dat' for fil in request.args}
 
     file = combine_filter(urls)
     proxy = io.StringIO(file)

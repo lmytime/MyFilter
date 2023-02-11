@@ -85,9 +85,7 @@ const app = Vue.createApp({
                 }
             }
             if (this.filter.length === 0) {
-                for (let fil of this.filterInit) {
-                    this.filter.push(fil + '.dat')
-                }
+                this.filter = this.filterInit
             }
             this.filterLink = `https://preview.lmytime.com/getfilter?${this.filter.join('&')}`
             this.g.updateOptions({
@@ -240,7 +238,7 @@ const app = Vue.createApp({
         };
 
         this.g = new Dygraph(document.getElementById("dygraph"),
-            `https://preview.lmytime.com/getfilter?${this.filterInit.join('.dat&')+'.dat'}`, {
+            `https://preview.lmytime.com/getfilter?${this.filterInit.join('&')}`, {
                 title: 'My Filter',
                 xlabel: 'Wavelength [Å]',
                 ylabel: 'Response',
@@ -259,7 +257,7 @@ const app = Vue.createApp({
         for (let fil of this.filterInit) {
             let instrument = this.FilterIndexing.find(item => item.value === fil.split('.')[0])
             this.instrumentInit.push(instrument)
-            let filter = instrument.children.find(item => item.value === fil+'.dat')
+            let filter = instrument.children.find(item => item.value === fil)
             filter.checked = true
         }
         this.instrumentInit = this.instrumentInit.filter((v, i, a) => a.indexOf(v) === i);
@@ -269,7 +267,8 @@ const app = Vue.createApp({
     },
     computed: {
         shareLink: function () {
-            return `https://preview.lmytime.com/myfilter?fil=${this.filter.join(',')}&z=${this.redshift}`
+            let filter = [];
+            return `https://preview.lmytime.com/myfilter?fil=${filter.join(',')}&z=${this.redshift}`
         }
     }
 })
