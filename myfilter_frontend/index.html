@@ -31,7 +31,7 @@
                         the
                         cursor to zoom in; <br>4. Double click to zoom out;<br><br>
 
-                        Filter infomation is from <a target="_blank"
+                        Filter data are based on <a target="_blank"
                         href="http://svo2.cab.inta-csic.es/theory/fps/index.php">SVO Filter Profile Service</a>.
                     </span>
                     <h4 style="text-align:center;"> Contact: <a target="_blank"
@@ -46,6 +46,25 @@
                             <el-option v-for="item in instrumentOptions" :key="item.value" :label="item.value"
                                 :value="item" />
                 </el-select>
+                <el-divider style="border-top:1px dashed"></el-divider>
+                <div style="display: flex; justify-content: space-evenly;">
+                    <el-card class="filterlist" style="width: 35%; margin-bottom: 5px; border: 1px solid rgb(71, 82, 177);">
+                        <el-button link @click="downloadWithAxios(filterLink, 'myfilters.csv')">Download csv</el-button>
+                    </el-card>
+                    <el-card class="filterlist" style="width: 35%; margin-bottom: 5px; border: 1px solid rgb(71, 82, 177);">
+                        <el-button link @click="copyText();">Share Link</el-button>
+                    </el-card>
+                </div>
+                <el-input
+                    v-if="shareLinkVisible"
+                    v-model="shareLink"
+                    ref="shareLink"
+                    readonly
+                    resize='none'
+                    autosize
+                    type="textarea"
+                    input-style="word-wrap:break-word;line-height:1;font-family: monospace;font-size:small;word-break: break-all;"
+                ></el-input>
                 <el-divider style="border-top:1px dashed"></el-divider>
 
                 <el-card class="filterlist" v-for="instrument in selectedIntrument" style="width: 95%; margin-bottom: 5px; border: 1px solid rgb(71, 82, 177);">
@@ -74,24 +93,7 @@
                         </div>
                 </el-card>
 
-                <el-divider></el-divider>
-                <div style="display: flex; justify-content: space-evenly;">
-                    <el-card class="filterlist" style="width: 35%; margin-bottom: 5px; border: 1px solid rgb(71, 82, 177);">
-                        <el-button link @click="downloadWithAxios(filterLink, 'myfilters.csv')">Download csv</el-button>
-                    </el-card>
-                    <el-card class="filterlist" style="width: 35%; margin-bottom: 5px; border: 1px solid rgb(71, 82, 177);">
-                        <el-button link @click="shareLinkVisible=!shareLinkVisible">Share Link</el-button>
-                    </el-card>
-                </div>
-                <el-input
-                    v-if="shareLinkVisible"
-                    v-model="shareLink"
-                    readonly
-                    resize='none'
-                    autosize
-                    type="textarea"
-                    input-style="word-wrap:break-word;line-height:1;font-family: monospace;font-size:small;word-break: break-all;"
-                    />
+
 
 
             </div>

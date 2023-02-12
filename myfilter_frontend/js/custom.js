@@ -164,6 +164,22 @@ const app = Vue.createApp({
                 this.forceFileDownload(response, title)
             }).catch(() => console.log('error occured'))
         },
+        copyText() {
+            this.shareLinkVisible = true
+            navigator.clipboard.writeText(this.shareLink).then(() => {
+                setTimeout(() => {
+                    this.shareLinkVisible = false
+                }, 4000)
+            })
+            const CopyNotification = () => {
+                ElementPlus.ElNotification({
+                  title: 'Link copied to clipboard!',
+                  type: 'success',
+                  duration: 4000,
+                })
+            }
+            CopyNotification();
+        }
     },
     beforeMount() {
         console.log("Welcome to MyFilter!");
@@ -241,7 +257,7 @@ const app = Vue.createApp({
             `https://preview.lmytime.com/getfilter?${this.filterInit.join('&')}`, {
                 title: 'My Filter',
                 xlabel: 'Wavelength [Å]',
-                ylabel: 'Response',
+                ylabel: 'Transmittance',
                 legend: 'always',
                 fillGraph: true,
                 rollPeriod: 1,
