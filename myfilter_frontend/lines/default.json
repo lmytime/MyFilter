@@ -52,7 +52,7 @@
     {
         "name": "Mg II 2803",
         "lambda": 2803.5315,
-        "checked": false
+        "checked": true
     },
     {
         "name": "[O II] 3726",
@@ -137,7 +137,7 @@
     {
         "name": "[S II] 6731",
         "lambda": 6732.673,
-        "checked": false
+        "checked": true
     },
     {
         "lambda": 7067.198,
@@ -187,12 +187,12 @@
     {
         "lambda": 12821.59,
         "name": "Paβ",
-        "checked": false
+        "checked": true
     },
     {
         "lambda": 12570.238,
         "name": "[FeII] 1.257",
-        "checked": false
+        "checked": true
     },
     {
         "lambda": 16439.981,
@@ -222,11 +222,11 @@
     {
         "lambda": 26258.67,
         "name": "Brβ",
-        "checked": false
+        "checked": true
     },
     {
         "lambda": 40522.62,
         "name": "Brα",
-        "checked": false
+        "checked": true
     }
 ]
