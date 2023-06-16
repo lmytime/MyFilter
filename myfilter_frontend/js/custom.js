@@ -11,6 +11,7 @@ const app = Vue.createApp({
             g: "",
             redshift: 0,
             lines: "",
+            defaultLines: "",
             FilterIndexing: FilterIndexing,
             selectedIntrument:[],
             filter: [],
@@ -180,10 +181,33 @@ const app = Vue.createApp({
                 })
             }
             CopyNotification();
+        },
+        selectAllLines() {
+            for (let line of this.lines) {
+                line.checked = true
+            }
+            this.g.updateOptions({});
+        },
+        unselectAllLines() {
+            for (let line of this.lines) {
+                line.checked = false
+            }
+            this.g.updateOptions({});
+        },
+        selectDefaultLines() {
+            axios.get("/myfilter/lines/default.json").then(res => {
+                this.lines = res.data;
+                this.defaultLines = Object.assign({}, res.data);
+            }).catch(err => {
+                console.log(err);
+            }).finally(() => {
+                this.g.updateOptions({});
+            }
+            )
         }
     },
     beforeMount() {
-        console.log("Welcome to MyFilter!");
+        console.log("Welcome to AstroMy Filter!");
         console.log("If you have any ideas or suggestions, please contact Mingyu at lmytime@hotmail.com");
         console.log("If you like this app, please share it with your friends!");
         console.log("TODO: [1] better line systems; [2] better performance; [3] custom filter; [4] better everything.")
@@ -214,6 +238,7 @@ const app = Vue.createApp({
         }
         axios.get("/myfilter/lines/default.json").then(res => {
             this.lines = res.data;
+            this.defaultLines = Object.assign({}, res.data);
         }).catch(err => {
             console.log(err);
         }).finally(() => {

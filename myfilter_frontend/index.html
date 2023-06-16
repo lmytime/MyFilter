@@ -166,7 +166,7 @@
                                 :value="item" />
                         </el-select>
                         or add
-                        <el-button  type="primary" @click="dialogFormVisible = true">custom line</el-button>
+                        <el-button type="primary" @click="dialogFormVisible = true">custom line</el-button>
                     </h3>
                     <el-dialog v-model="dialogFormVisible" title="Add custom line" width="30%" draggable>
                         <el-form :model="form" label-position="right">
@@ -195,12 +195,20 @@
                                     </template>
                                 </el-popover>
                             </el-checkbox>
-
-
                         </div>
-                        <el-divider style="border-top:1px dashed">Optional lines </el-divider>
-                        <div style="height: 210px; overflow: scroll;">
-                            <!-- <el-button>Select ALL</el-button> -->
+                        <el-divider style="border-top:1px dashed">Optional lines</el-divider>
+                        <div style="margin-top: -15px; width: 100%; text-align: center;">
+                            <el-button type="text" @click="selectAllLines">[Select All]</el-button>
+                            <el-popconfirm width="300" confirm-button-text="Yes" cancel-button-text="No" icon-color="#626AEF"
+                                :title="`This will delete all custom lines. Are you sure?`" confirm-button-type="danger"
+                                cancel-button-type="info" @confirm="selectDefaultLines">
+                                <template #reference>
+                                    <el-button type="text" style="color: red;">[Default]</el-button>
+                                </template>
+                            </el-popconfirm>
+                            <el-button type="text" @click="unselectAllLines">[Unselect All]</el-button>
+                        </div><br>
+                        <div>
                             <el-checkbox border v-show="!item.checked" v-for="item in lines" v-model="item.checked"
                                 :key="item.name" @change="g.updateOptions({})">
                                 <el-popover placement="top" trigger="hover" :content="`λ=${item.lambda}Å`">
