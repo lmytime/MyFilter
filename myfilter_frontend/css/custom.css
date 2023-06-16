@@ -8,13 +8,13 @@
 
 #dygraph .dygraph-title {
     font-size: 30px;
-    text-shadow: gray 2px 2px 2px;
+    /* text-shadow: gray 2px 2px 2px; */
 }
 
 #dygraph .dygraph-ylabel,
 .dygraph-xlabel {
     font-size: 18px;
-    text-shadow: gray -2px 2px 2px;
+    /* text-shadow: gray -2px 2px 2px; */
 }
 
 .chart {
