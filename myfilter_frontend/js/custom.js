@@ -11,14 +11,16 @@ const app = Vue.createApp({
             g: "",
             redshift: 0,
             lines: "",
+            cusComment: "",
             defaultLines: "",
             FilterIndexing: FilterIndexing,
-            selectedIntrument:[],
+            selectedIntrument: [],
             filter: [],
             filterInit: [],
             filterInitDefault: ["CFHT/MegaCam.u", "Subaru/HSC.g", "Subaru/HSC.r", "Subaru/HSC.i", "Subaru/HSC.z", "Subaru/HSC.Y"],
             zInit: 2,
             zInitDefault: 2,
+            title: "",
             dialogFormVisible: false,
             form: {
                 name: "",
@@ -98,7 +100,7 @@ const app = Vue.createApp({
             if (query) {
                 this.loading = true
                 this.lineOptions = this.linList.filter((item) => {
-                    return (item.name+"|"+item.w).toLowerCase().includes(query.replace(/\s/g, '').toLowerCase())
+                    return (item.name + "|" + item.w).toLowerCase().includes(query.replace(/\s/g, '').toLowerCase())
                 })
                 this.loading = false
             } else {
@@ -129,7 +131,7 @@ const app = Vue.createApp({
             this.selectedIntrument.push(value)
             this.InstrumentValue = ""
         },
-        getSelectedFilterNumber(childen){
+        getSelectedFilterNumber(childen) {
             let count = 0
             for (let ff of childen) {
                 if (ff.checked) {
@@ -138,7 +140,7 @@ const app = Vue.createApp({
             }
             return count
         },
-        deleteSelectedInstrument(instrument){
+        deleteSelectedInstrument(instrument) {
             // all filter set to unchecked
             for (let ff of instrument.children) {
                 ff.checked = false
@@ -175,9 +177,9 @@ const app = Vue.createApp({
             })
             const CopyNotification = () => {
                 ElementPlus.ElNotification({
-                  title: 'Link copied to clipboard!',
-                  type: 'success',
-                  duration: 4000,
+                    title: 'Link copied to clipboard!',
+                    type: 'success',
+                    duration: 4000,
                 })
             }
             CopyNotification();
@@ -217,22 +219,33 @@ const app = Vue.createApp({
             (acc, val) => ({ ...acc, [val]: params.get(val) }),
             {}
         );
+        this.cus = paramsObj.cus ? paramsObj.cus : this.cusDefault
+
+        if (this.cus == 'JWST') {
+            this.title = this.cus + " Filter";
+            this.cusComment = "This is " + this.cus + " customamized version.<br>Go to general version <a target='_blank' href='https://preview.lmytime.com/myfilter'>here</a>."
+            this.filterInitDefault = ["JWST/NIRCam.F090W", "JWST/NIRCam.F115W", "JWST/NIRCam.F150W", "JWST/NIRCam.F200W",
+                "JWST/NIRCam.F277W", "JWST/NIRCam.F356W", "JWST/NIRCam.F444W"]
+            this.zInitDefault = 6.0
+        }
+
         this.filterInit = paramsObj.fil ? paramsObj.fil.split(',') : this.filterInitDefault
         this.zInit = paramsObj.z ? parseFloat(paramsObj.z) : this.zInitDefault
 
         const CustomInitNotification = () => {
             ElementPlus.ElNotification({
-              title: 'Custom Initialization Success',
-              dangerouslyUseHTMLString: true,
-              message: `<strong><i>MyFilter</i> app is successfully initialized with the custom-selected filters and redshift.
+                title: 'Custom Initialization Success',
+                dangerouslyUseHTMLString: true,
+                message: `<strong><i>MyFilter</i> app is successfully initialized with the custom-selected filters and redshift.
               You can share the link with others to show the same filter set and redshift.</strong>`,
-              type: 'success',
+                type: 'success',
             })
         }
 
-        if((this.filterInit == this.filterInitDefault) && (this.zInit == this.zInitDefault)){
+
+        if ((this.filterInit == this.filterInitDefault) && (this.zInit == this.zInitDefault)) {
             this.shareLinkVisible = false
-        } else{
+        } else {
             this.shareLinkVisible = true
             CustomInitNotification()
         }
@@ -281,23 +294,23 @@ const app = Vue.createApp({
 
         this.g = new Dygraph(document.getElementById("dygraph"),
             `https://preview.lmytime.com/getfilter?${this.filterInit.join('&')}`, {
-                // title: 'AstroMy™ Filter',
-                xlabel: 'Wavelength [Å]',
-                ylabel: 'Transmittance',
-                legend: 'always',
-                fillGraph: true,
-                rollPeriod: 1,
-                animatedZooms: true,
-                interactionModel: Dygraph.MyInteractionModel,
-                underlayCallback: this.underlaycallback,
-                labelsShowZeroValues: false,
-                labelsSeparateLines: true,
-                legendFormatter: legendFormatter,
-                axisTickSize: 5,
-                axisLineWidth: 2,
-                strokeWidth: 2,
-                fillAlpha: 0.3
-            });
+            title: this.title,
+            xlabel: 'Wavelength [Å]',
+            ylabel: 'Transmittance',
+            legend: 'always',
+            fillGraph: true,
+            rollPeriod: 1,
+            animatedZooms: true,
+            interactionModel: Dygraph.MyInteractionModel,
+            underlayCallback: this.underlaycallback,
+            labelsShowZeroValues: false,
+            labelsSeparateLines: true,
+            legendFormatter: legendFormatter,
+            axisTickSize: 5,
+            axisLineWidth: 2,
+            strokeWidth: 2,
+            fillAlpha: 0.3
+        });
 
 
         for (let fil of this.filterInit) {
@@ -321,5 +334,5 @@ const app = Vue.createApp({
 app.use(ElementPlus)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(key, component)
-  }
+}
 app.mount('#app')

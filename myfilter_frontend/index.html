@@ -69,6 +69,7 @@
         <div class="main">
             <div class="left-container">
                 <div class="title">AstroMy™ Filter</div>
+                <div v-html="cusComment"></div>
                 <el-card style="text-align: left; font-size: small; width: 80%; margin: 0 auto;">
                     <h2 @click="readmeDialog = !readmeDialog" style="cursor: pointer;"
                         v-text="`${readmeDialog ? 'README ↓' : 'README -'}`"></h2>
