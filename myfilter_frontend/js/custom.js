@@ -242,7 +242,7 @@ const app = Vue.createApp({
                 }
                 return html;
             }
-            html = 'Wavelength:' + data.xHTML + 'Å';
+            html = 'Wavelength: ' + (Math.round(data.x * 100) / 100).toFixed(2) + 'Å';
             for (let i = 0; i < data.series.length; i++) {
                 let series = data.series[i];
                 if (!series.isVisible) continue;
