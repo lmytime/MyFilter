@@ -27,6 +27,7 @@ const app = Vue.createApp({
             loading: false,
             linList: allLines,
             lineOptions: [],
+            readmeDialog: true,
             instrumentOptions: [],
             instrumentInit: [],
             value: "",
@@ -255,7 +256,7 @@ const app = Vue.createApp({
 
         this.g = new Dygraph(document.getElementById("dygraph"),
             `https://preview.lmytime.com/getfilter?${this.filterInit.join('&')}`, {
-                title: 'AstroMy Filter',
+                // title: 'AstroMy™ Filter',
                 xlabel: 'Wavelength [Å]',
                 ylabel: 'Transmittance',
                 legend: 'always',

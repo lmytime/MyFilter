@@ -6,6 +6,13 @@
     font-family: Georgia, Verdana, serif;
 }
 
+.title {
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    margin: 20px;
+}
+
 #dygraph .dygraph-title {
     font-size: 30px;
     /* text-shadow: gray 2px 2px 2px; */
