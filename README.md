@@ -8,6 +8,10 @@ A live demo of the app can be viewed here:
 
 https://preview.lmytime.com/myfilter
 
+JWST NIRCam customized version:
+
+https://preview.lmytime.com/myfilter?cus=JWST
+
 <img src="demo.png" width="100%">
 
 ## Features
