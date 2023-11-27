@@ -22,17 +22,29 @@ Multiple filters can be overlaid to compare bandpasses.
 ## Deployment
 We provide a way to deploy using docker on your own.
 
-## Development
-The app is built using:
+First pull the docker image:
+```sh
+docker pull lmytime/myfilter
+```
+Then run the docker image as container:
+```sh
+docker run -it --rm -p 9899:9899 lmytime/myfilter
+```
+Finally, you can open the software on:
+- `http://127.0.0.1:9899`
 
-Vue.js
-drgaphjs for data visualization
-Element UI for styling
-The filter data is from the [SVO](http://svo2.cab.inta-csic.es/theory/fps/index.php) website.
-Some data from users:
-- `JWST_xxx`: xxx represents MIRI, NIRISS, NIRCam, and NIRSpec. These data are from JWST ETC v2.0.
-- `DECam-Merian`: Filters designed in [Merian Survey](https://merian.sites.ucsc.edu/).
-- `MOIRCS`: Subaru MOIRCS
+## Development
+The app is built based on:
+
+- [Vue.js](https://vuejs.org/)
+- [dygraphs](https://dygraphs.com/) for data visualization
+- [ElementPlus](https://element-plus.org/) for styling
+- [Flask](https://flask.palletsprojects.com/)
+- The filter data is from the [SVO](http://svo2.cab.inta-csic.es/theory/fps/index.php) website.
+- Some data are from users:
+  - `JWST_xxx`: xxx represents MIRI, NIRISS, NIRCam, and NIRSpec. These data are from JWST ETC v2.0.
+  - `DECam-Merian`: Filters designed in [Merian Survey](https://merian.sites.ucsc.edu/).
+  - `MOIRCS`: Subaru MOIRCS
 
 ## Contributing
 Contributions are welcome! Please create an issue or open a pull request if you would like to add a feature or fix a bug.

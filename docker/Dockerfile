@@ -1,11 +1,14 @@
 FROM python:3.8-slim
-WORKDIR /app
 
-# Clone MyFilter from github
-RUN apt update && apt intall -y wget && cd tmp \
-    && wget https://github.com/lmytime/MyFilter/archive/refs/tags/0.0.2.tar.gz \
-    && tar -zxvf 0.0.2.tar.gz
-RUN cd /tmp && tar -zxvf 0.0.2.tar.gz && mv 0.0.2/* /app && rm -rf 0.0.2
+# Download MyFilter from github
+RUN  apt-get update \
+  && apt-get install -y wget \
+  && rm -rf /var/cache/apt \
+  && apt-get clean
+RUN cd /tmp && wget https://github.com/lmytime/MyFilter/archive/refs/tags/1.0.0.tar.gz \
+    && tar -zxvf 1.0.0.tar.gz && mv MyFilter-1.0.0 /app && rm -rf /tmp/*.tar.gz
+
+WORKDIR /app
 
 # Install python packages
 RUN python -m pip install --upgrade pip && pip install --no-cache-dir numpy pandas scipy tqdm requests flask flask_cors h5py
