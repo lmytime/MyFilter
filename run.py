@@ -1,11 +1,11 @@
 from scipy import interpolate
 import pandas as pd
 import numpy as np
-from flask import Flask, request, send_file, render_template
+from flask import Flask, request, send_file, render_template, redirect
 import io
 from flask_cors import CORS
 
-app = Flask(__name__, static_url_path='/myfilter', template_folder='./myfilter_frontend', static_folder='./myfilter_frontend')
+app = Flask(__name__, static_url_path='/myfilter', template_folder='./static', static_folder='./static')
 CORS(app)
 
 
@@ -43,12 +43,17 @@ def get_filter():
     proxy.close()
     return send_file(mem, mimetype='text/csv')
 
+# redirect homepage to /myfilter
+@app.route('/', methods=['GET'])
+def index_redirect():
+    return redirect("/myfilter")
+
 @app.route('/myfilter', methods=['GET'])
 def index():
     return render_template('index.html')
 
 if __name__ == "__main__":
-    from waitress import serve
+    # from waitress import serve
     import h5py
 
     # Read the filter db
@@ -56,4 +61,4 @@ if __name__ == "__main__":
 
     # Run the server
     # serve(app, host="0.0.0.0", port=3688)
-    app.run(debug=True, port=9899)
+    app.run(host="0.0.0.0", debug=False, port=9899, threaded=True)
