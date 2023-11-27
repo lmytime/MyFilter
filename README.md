@@ -20,7 +20,7 @@ The app is simple to use. Just select the filters you want to visualize from the
 Multiple filters can be overlaid to compare bandpasses.
 
 ## Deployment
-We provide a way to deploy using docker.
+We provide a way to deploy using docker on your own.
 
 ## Development
 The app is built using:
