@@ -91,7 +91,7 @@ const app = Vue.createApp({
             if (this.filter.length === 0) {
                 this.filter = this.filterInit
             }
-            this.filterLink = `https://preview.lmytime.com/getfilter?${this.filter.join('&')}`
+            this.filterLink = `/getfilter?${this.filter.join('&')}`
             this.g.updateOptions({
                 'file': this.filterLink
             });
@@ -223,7 +223,7 @@ const app = Vue.createApp({
 
         if (this.cus == 'JWST') {
             this.title = this.cus + " Filter";
-            this.cusComment = "This is " + this.cus + " customamized version.<br>Go to general version <a target='_blank' href='https://preview.lmytime.com/myfilter'>here</a>."
+            this.cusComment = "This is " + this.cus + " customamized version.<br>Go to general version <a target='_blank' href='/myfilter'>here</a>."
             this.filterInitDefault = ["JWST/NIRCam.F090W", "JWST/NIRCam.F115W", "JWST/NIRCam.F150W", "JWST/NIRCam.F200W",
                 "JWST/NIRCam.F277W", "JWST/NIRCam.F356W", "JWST/NIRCam.F444W"]
             this.zInitDefault = 6.0
@@ -293,7 +293,7 @@ const app = Vue.createApp({
         };
 
         this.g = new Dygraph(document.getElementById("dygraph"),
-            `https://preview.lmytime.com/getfilter?${this.filterInit.join('&')}`, {
+            `/getfilter?${this.filterInit.join('&')}`, {
             title: this.title,
             xlabel: 'Wavelength [Å]',
             ylabel: 'Transmittance',
