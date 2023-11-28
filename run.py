@@ -10,7 +10,8 @@ CORS(app)
 
 
 def combine_filter(bands, precision=2000):
-    bands_raw = {band: db_filter[band] for band in bands}
+    print(bands)
+    bands_raw = {band: db_filter[band.split('/')[0]][band.split('/')[-1].split('.')[0]][band.split('/')[-1]] for band in bands}
 
     bands_interpolate = {}
     _wavelength = []
