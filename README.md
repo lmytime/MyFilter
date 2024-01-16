@@ -1,5 +1,5 @@
 # MyFilter
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10210202.svg)](https://doi.org/10.5281/zenodo.10210202)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10210201.svg)](https://doi.org/10.5281/zenodo.10210201)
 
 MyFilter is a web app that provides interactive visualization of astronomical filters' transmission curves.
 
@@ -59,25 +59,21 @@ Contributions are welcome! Please create an issue or open a pull request if you 
 This project is open source and available under the MIT License.
 
 ## Acknowledgment
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10210202.svg)](https://doi.org/10.5281/zenodo.10210202)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10210201.svg)](https://doi.org/10.5281/zenodo.10210201)
 
 If you publish any work that uses MyFilter, please cite the software by linking to the Zenodo DOI as follows:
 
-```latex
-The filter transmission curves visualization enabled by MyFilter \citep{MyFilter} facilitated the analysis presented in this work.
-```
-
 In `bibtex`:
 ```bibtex
-@software{MyFilter,
+@misc{MyFilter,
   author       = {Li, Mingyu},
   title        = {{MyFilter: A Web Application for Interactive Visualization of Astronomical Filter Transmission Curves}},
   month        = nov,
   year         = 2023,
   publisher    = {Zenodo},
   version      = {1.0.0},
-  doi          = {10.5281/zenodo.10210202},
-  url          = {https://doi.org/10.5281/zenodo.10210202}
+  doi          = {10.5281/zenodo.10210201},
+  url          = {https://doi.org/10.5281/zenodo.10210201}
 }
 ```
 
